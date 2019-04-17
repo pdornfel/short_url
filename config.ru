@@ -3,7 +3,17 @@ require 'bundler'
 
 Bundler.require
 
-require "sinatra/reloader" if development?
-require './short_url'
 
-run ShortUrl
+require 'sinatra/json'
+require 'bson'
+require 'mongo'
+
+root = ::File.dirname(__FILE__)
+require ::File.join(root,'/app/main')
+
+if development?
+  require 'pry'
+  require "sinatra/reloader"
+end
+
+run Main
